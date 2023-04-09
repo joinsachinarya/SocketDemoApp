@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Chat.IO</title>
+    <title>SocketDemo</title>
     <style>
         body {
             margin: 0;
@@ -58,6 +58,7 @@
             background: #efefef;
         }
     </style>
+    <link rel="stylesheet" href="mystyle.css">
 </head>
 
 <body>
@@ -66,7 +67,29 @@
         <input id="input" autocomplete="off" /><button>Send</button>
     </form>
     <script src="/socket.io/socket.io.js"></script>
-    <script> var socket = io() </script>
+
+    <script>
+        var socket = io();
+
+        var messages = document.getElementById('messages');
+        var form = document.getElementById('form');
+        var input = document.getElementById('input');
+
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+            if (input.value) {
+                socket.emit('chatMessage', input.value);
+                input.value = '';
+            }
+        });
+
+        socket.on('chatMessage', function (msg) {
+            var item = document.createElement('li');
+            item.textContent = msg;
+            messages.appendChild(item);
+            window.scrollTo(0, document.body.scrollHeight);
+        });
+    </script>
 </body>
 
 </html>
