@@ -58,7 +58,6 @@
             background: #efefef;
         }
     </style>
-    <link rel="stylesheet" href="mystyle.css">
 </head>
 
 <body>
@@ -69,7 +68,7 @@
     <script src="/socket.io/socket.io.js"></script>
 
     <script>
-        var socket = io();
+        const socket = io('ws://localhost:3000');
 
         var messages = document.getElementById('messages');
         var form = document.getElementById('form');
